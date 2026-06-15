@@ -13,7 +13,7 @@ const Settings = ({ token }) => {
   useEffect(() => {
     const fetchConfig = async () => {
       try {
-        const response = await fetch('stocksightcapstone-production.up.railway.app/api/v1/config', {
+        const response = await fetch('https://stocksight-backend-production.up.railway.app/api/v1/config', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (response.ok) {
@@ -42,7 +42,7 @@ const Settings = ({ token }) => {
     setMessage({ text: '', type: '' });
 
     try {
-      const response = await fetch('stocksightcapstone-production.up.railway.app/api/v1/config', {
+      const response = await fetch('https://stocksight-backend-production.up.railway.app/api/v1/config', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const Settings = ({ token }) => {
     setMessage({ text: '', type: '' });
 
     try {
-      const response = await fetch('stocksightcapstone-production.up.railway.app/api/v1/config', {
+      const response = await fetch('https://stocksight-backend-production.up.railway.app/api/v1/config', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

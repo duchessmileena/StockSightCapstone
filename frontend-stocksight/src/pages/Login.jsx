@@ -13,7 +13,7 @@ const Login = ({ setToken }) => {
       const savedToken = localStorage.getItem('token');
       if (savedToken) {
         try {
-          const response = await fetch('stocksightcapstone-production.up.railway.app/api/v1/auth/session', {
+          const response = await fetch('https://stocksight-backend-production.up.railway.app/api/v1/auth/session', {
             headers: { 'Authorization': `Bearer ${savedToken}` }
           });
           
@@ -38,7 +38,7 @@ const Login = ({ setToken }) => {
 
     try {
       if (isLoginMode) {
-        const response = await fetch('stocksightcapstone-production.up.railway.app/api/v1/auth/login', {
+        const response = await fetch('https://stocksight-backend-production.up.railway.app/api/v1/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password }),
@@ -53,7 +53,7 @@ const Login = ({ setToken }) => {
           setMessage({ text: data.detail || 'Login gagal. Periksa email dan password.', type: 'error' });
         }
       } else {
-        const response = await fetch('stocksightcapstone-production.up.railway.app/api/v1/auth/register', {
+        const response = await fetch('https://stocksight-backend-production.up.railway.app/api/v1/auth/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, email, password }),

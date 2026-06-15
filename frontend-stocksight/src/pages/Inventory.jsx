@@ -9,7 +9,7 @@ const Inventory = ({ token }) => {
     
     if (newStock !== null && !isNaN(newStock)) {
       try {
-        const response = await fetch(`stocksightcapstone-production.up.railway.app/api/v1/products/${product.originalId}/stock`, {
+        const response = await fetch(`https://stocksight-backend-production.up.railway.app/api/v1/products/${product.originalId}/stock`, {
           method: 'PATCH',
           headers: { 
             'Authorization': `Bearer ${token}`,
@@ -32,7 +32,7 @@ const Inventory = ({ token }) => {
   const fetchInventory = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch('stocksightcapstone-production.up.railway.app/api/v1/inventory/reorder', {
+      const response = await fetch('https://stocksight-backend-production.up.railway.app/api/v1/inventory/reorder', {
         headers: { 'Authorization': `Bearer ${token}` }
       }); 
       
