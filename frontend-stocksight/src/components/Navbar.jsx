@@ -1,10 +1,10 @@
 import React from 'react';
 
 const Navbar = ({ activeTab, setActiveTab, setToken }) => {
-  // Fungsi untuk logout
+
   const handleLogout = () => {
-    localStorage.removeItem('token'); // Hapus dari memori browser
-    setToken(null); // Ubah state kembali ke null agar dilempar ke halaman login
+    localStorage.removeItem('token');
+    setToken(null); 
   };
 
   return (
@@ -24,7 +24,6 @@ const Navbar = ({ activeTab, setActiveTab, setToken }) => {
       <div className="user-profile">
         <div className="avatar">PJK</div>
         <span className="user-name">PJK-GM073</span>
-        {/* Tombol Logout Minimalis */}
         <button 
           onClick={handleLogout} 
           style={{ background: 'none', border: '1px solid var(--color-danger)', color: 'var(--color-danger)', padding: '6px 12px', borderRadius: '100px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 'bold', marginLeft: '8px' }}
