@@ -12,7 +12,7 @@ const Overview = ({ chartOptions, token, setActiveTab }) => {
       try {
         setIsLoading(true);
 
-        const sumResponse = await fetch('https://stocksight-backend-production.up.railway.app/api/v1/dashboard/summary', {
+        const sumResponse = await fetch('https://stocksightcapstone-production.up.railway.app/api/v1/dashboard/summary', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (sumResponse.ok) {
@@ -24,7 +24,7 @@ const Overview = ({ chartOptions, token, setActiveTab }) => {
           });
         }
 
-        const topProdResponse = await fetch('https://stocksight-backend-production.up.railway.app/api/v1/dashboard/top-products', {
+        const topProdResponse = await fetch('https://stocksightcapstone-production.up.railway.app/api/v1/dashboard/top-products', {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           if (topProdResponse.ok) {
@@ -54,7 +54,7 @@ const Overview = ({ chartOptions, token, setActiveTab }) => {
           });
         }
 
-        const invResponse = await fetch('https://stocksight-backend-production.up.railway.app/api/v1/inventory/reorder', {
+        const invResponse = await fetch('https://stocksightcapstone-production.up.railway.app/api/v1/inventory/reorder', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (invResponse.ok) {

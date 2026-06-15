@@ -19,7 +19,7 @@ const Prediction = ({ chartOptions, token }) => {
   useEffect(() => {
     const fetchConfig = async () => {
       try {
-        const response = await fetch('https://stocksight-backend-production.up.railway.app/api/v1/config', {
+        const response = await fetch('https://stocksightcapstone-production.up.railway.app/api/v1/config', {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (response.ok) {
@@ -33,7 +33,7 @@ const Prediction = ({ chartOptions, token }) => {
 
     const fetchInitialProducts = async () => {
       try {
-        const response = await fetch('https://stocksight-backend-production.up.railway.app/api/v1/products', {
+        const response = await fetch('https://stocksightcapstone-production.up.railway.app/api/v1/products', {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (response.ok) {
@@ -73,7 +73,7 @@ const Prediction = ({ chartOptions, token }) => {
     formData.append('file', selectedFile); 
 
     try {
-      const uploadRes = await fetch('https://stocksight-backend-production.up.railway.app/api/v1/uploads', {
+      const uploadRes = await fetch('https://stocksightcapstone-production.up.railway.app/api/v1/uploads', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: formData
@@ -85,7 +85,7 @@ const Prediction = ({ chartOptions, token }) => {
       
       let isDone = false;
       for (let i = 0; i < 15; i++) { 
-        const statusRes = await fetch(`https://stocksight-backend-production.up.railway.app/api/v1/uploads/${uploadData.id}`, { headers: { 'Authorization': `Bearer ${token}` } });
+        const statusRes = await fetch(`https://stocksightcapstone-production.up.railway.app/api/v1/uploads/${uploadData.id}`, { headers: { 'Authorization': `Bearer ${token}` } });
         const statusData = await statusRes.json();
         if (statusData.status === 'done') { isDone = true; break; } 
         else if (statusData.status === 'error') throw new Error("Format CSV tidak sesuai aturan data.");
@@ -94,7 +94,7 @@ const Prediction = ({ chartOptions, token }) => {
 
       if (!isDone) throw new Error("Waktu tunggu habis. File terlalu besar.");
 
-      const prodRes = await fetch('https://stocksight-backend-production.up.railway.app/api/v1/products', { headers: { 'Authorization': `Bearer ${token}` } });
+      const prodRes = await fetch('https://stocksightcapstone-production.up.railway.app/api/v1/products', { headers: { 'Authorization': `Bearer ${token}` } });
       const prodData = await prodRes.json();
       
       const uniqueProducts = [];
@@ -126,7 +126,7 @@ const Prediction = ({ chartOptions, token }) => {
     setPredictionResult(null);
 
     try {
-      const configRes = await fetch('https://stocksight-backend-production.up.railway.app/api/v1/config', {
+      const configRes = await fetch('https://stocksightcapstone-production.up.railway.app/api/v1/config', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -137,7 +137,7 @@ const Prediction = ({ chartOptions, token }) => {
         setDefaultHorizon(horizon);
       }
 
-      const forecastRes = await fetch('https://stocksight-backend-production.up.railway.app/api/v1/forecasts', {
+      const forecastRes = await fetch('https://stocksightcapstone-production.up.railway.app/api/v1/forecasts', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -157,7 +157,7 @@ const Prediction = ({ chartOptions, token }) => {
 
       let isDone = false;
       for (let i = 0; i < 20; i++) {
-        const statusRes = await fetch(`https://stocksight-backend-production.up.railway.app/api/v1/forecasts/${forecastData.id}`, {
+        const statusRes = await fetch(`https://stocksightcapstone-production.up.railway.app/api/v1/forecasts/${forecastData.id}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const statusData = await statusRes.json();
@@ -169,7 +169,7 @@ const Prediction = ({ chartOptions, token }) => {
 
       if (!isDone) throw new Error("Waktu komputasi AI habis.");
 
-      const detailRes = await fetch(`https://stocksight-backend-production.up.railway.app/api/v1/forecasts/${forecastData.id}/details`, {
+      const detailRes = await fetch(`https://stocksightcapstone-production.up.railway.app/api/v1/forecasts/${forecastData.id}/details`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
