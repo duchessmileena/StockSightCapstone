@@ -107,7 +107,7 @@ const Login = ({ setToken }) => {
               <input 
                 type="text" 
                 className="form-control" 
-                placeholder="Rania Zamrizq"
+                placeholder="Nama Lengkap"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required={!isLoginMode} 
