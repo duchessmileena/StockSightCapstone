@@ -102,7 +102,7 @@ const Inventory = ({ token }) => {
           <p className="desc" style={{marginBottom: 0, marginTop: '4px'}}>Pantau indikator ketersediaan stok fisik terhadap parameter batas aman pergudangan.</p>
         </div>
         <div className="header-actions-inline">
-          <button className="btn-secondary" onClick={fetchInventory}>Segarkan Data</button>
+          <button className="btn-secondary" onClick={fetchInventory}>Refresh</button>
         </div>
       </div>
 
