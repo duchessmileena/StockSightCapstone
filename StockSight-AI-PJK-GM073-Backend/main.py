@@ -45,7 +45,8 @@ async def load_initial_data():
     global raw_data_db, products_db, inventory_db
     
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    processed_dir = os.path.join(base_dir, "..", "processed_data")
+    # PERBAIKAN: Hapus ".."
+    processed_dir = os.path.join(base_dir, "processed_data")
     
     sales_path = os.path.join(processed_dir, "time_series_category_feature_engineered.csv")
     inv_path = os.path.join(processed_dir, "inventory_summary.csv")
@@ -104,7 +105,7 @@ async def load_initial_data():
     else:
         for pid in products_db.keys():
             inventory_db[pid] = {"current_stock": 50, "safety_stock": 15, "reorder_point": 25}
-
+            
 @app.get("/api/v1/debug")
 def debug():
     return {
@@ -184,19 +185,14 @@ def update_config(config: AIConfig):
 @app.get("/api/v1/dashboard/summary")
 def get_summary():
     total_sales = 0
-
     if not raw_data_db.empty:
         if "y" in raw_data_db.columns:
-            total_sales = int(
-                pd.to_numeric(
-                    raw_data_db["y"],
-                    errors="coerce"
-                ).fillna(0).sum()
-            )
+            total_sales = int(pd.to_numeric(raw_data_db["y"], errors="coerce").fillna(0).sum())
 
     ai_accuracy = None 
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    metrics_path = os.path.join(base_dir, "..", "processed_data", "model_metrics.csv")
+    # PERBAIKAN: Hapus ".."
+    metrics_path = os.path.join(base_dir, "processed_data", "model_metrics.csv")
     
     if os.path.exists(metrics_path):
         try:
@@ -305,12 +301,14 @@ async def run_prophet_model(forecast_id: str, product_id: str, horizon: int):
         product_name = products_db[product_id]["name"]
         base_dir = os.path.dirname(os.path.abspath(__file__))
         
+        # PERBAIKAN: Hapus ".."
         model_filename = f"prophet_model_{product_name.replace(' ', '_')}.json"
-        model_path = os.path.join(base_dir, "..", "Notebooks", model_filename)
+        model_path = os.path.join(base_dir, "Notebooks", model_filename)
         
         if not os.path.exists(model_path):
             print(f"\n[AWAS] File {model_filename} tidak ditemukan!")
-            fallback_path = os.path.join(base_dir, "..", "Notebooks", "prophet_model.json")
+            # PERBAIKAN: Hapus ".."
+            fallback_path = os.path.join(base_dir, "Notebooks", "prophet_model.json")
             if os.path.exists(fallback_path):
                 model_path = fallback_path
             else:
@@ -427,7 +425,8 @@ def get_forecast_results(forecast_id: str):
 @app.get("/api/v1/pipeline/outliers")
 def get_pipeline_outliers():
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    path = os.path.join(base_dir, "..", "processed_data", "outlier_summary.csv")
+    # PERBAIKAN: Hapus ".."
+    path = os.path.join(base_dir, "processed_data", "outlier_summary.csv")
     if os.path.exists(path):
         df = pd.read_csv(path)
         return df.to_dict(orient="records")
@@ -436,7 +435,8 @@ def get_pipeline_outliers():
 @app.get("/api/v1/pipeline/events")
 def get_pipeline_events():
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    path = os.path.join(base_dir, "..", "processed_data", "time_series_global.csv")
+    # PERBAIKAN: Hapus ".."
+    path = os.path.join(base_dir, "processed_data", "time_series_global.csv")
     if os.path.exists(path):
         df = pd.read_csv(path)
         df['y'] = pd.to_numeric(df['y'], errors='coerce').fillna(0)
@@ -454,7 +454,8 @@ def get_pipeline_events():
 @app.get("/api/v1/pipeline/monthly")
 def get_pipeline_monthly():
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    path = os.path.join(base_dir, "..", "processed_data", "time_series_category_monthly.csv")
+    # PERBAIKAN: Hapus ".."
+    path = os.path.join(base_dir, "processed_data", "time_series_category_monthly.csv")
     if os.path.exists(path):
         df = pd.read_csv(path)
         df_grouped = df.groupby('ds')['y'].sum().reset_index()
@@ -464,7 +465,8 @@ def get_pipeline_monthly():
 @app.get("/api/v1/pipeline/features")
 def get_pipeline_features():
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    path = os.path.join(base_dir, "..", "processed_data", "time_series_category_feature_engineered.csv")
+    # PERBAIKAN: Hapus ".."
+    path = os.path.join(base_dir, "processed_data", "time_series_category_feature_engineered.csv")
     if os.path.exists(path):
         df = pd.read_csv(path)
         df_sampled = df.groupby('Category').tail(2)
