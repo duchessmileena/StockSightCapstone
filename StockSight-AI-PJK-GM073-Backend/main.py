@@ -4,6 +4,7 @@ import asyncio
 import pandas as pd
 from datetime import datetime, timedelta
 from fastapi import FastAPI, File, UploadFile, HTTPException, Depends, Header
+from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
@@ -469,3 +470,9 @@ def get_pipeline_features():
         df_sampled = df.groupby('Category').tail(2)
         return df_sampled.fillna(0).to_dict(orient="records")
     return []
+
+@app.get("/")
+def read_root():
+    url_frontend_kamu = "https://perpetual-friendship-production.up.railway.app/"
+    
+    return RedirectResponse(url=url_frontend_kamu)
