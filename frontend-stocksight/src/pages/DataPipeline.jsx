@@ -13,10 +13,10 @@ const DataPipeline = () => {
       try {
         setIsLoading(true);
         const [outRes, evRes, monRes, featRes] = await Promise.all([
-          fetch('http://localhost:8000/api/v1/pipeline/outliers'),
-          fetch('http://localhost:8000/api/v1/pipeline/events'),
-          fetch('http://localhost:8000/api/v1/pipeline/monthly'),
-          fetch('http://localhost:8000/api/v1/pipeline/features')
+          fetch('stocksightcapstone-production.up.railway.app/api/v1/pipeline/outliers'),
+          fetch('stocksightcapstone-production.up.railway.app/api/v1/pipeline/events'),
+          fetch('stocksightcapstone-production.up.railway.app/api/v1/pipeline/monthly'),
+          fetch('stocksightcapstone-production.up.railway.app/api/v1/pipeline/features')
         ]);
 
         if (outRes.ok) setOutliers(await outRes.json());
